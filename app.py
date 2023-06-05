@@ -1,16 +1,21 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 import pygame
 import random
+import os
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['STATIC_FOLDER'] = 'static'
 
 CANVAS_WIDTH = 300
 CANVAS_HEIGHT = 300
 CIRCLE_SIZE = 40
 
+
 @app.route('/')
 def index():
     return render_template('game.html')
+
 
 @app.route('/play')
 def play_game():
@@ -19,7 +24,7 @@ def play_game():
     clock = pygame.time.Clock()
 
     your_score = 0
-    N_CIRCLES = random.randint(1, 7)
+    N_CIRCLES = random.randint(2, 6)
     running = True
 
     while running:
@@ -47,10 +52,11 @@ def play_game():
         else:
             prize = ''
 
-        pygame.image.save(canvas, 'static/canvas.png')  # Save the canvas as an image
+        pygame.image.save(canvas, os.path.join(app.config['STATIC_FOLDER'], 'canvas.png'))  # Save the canvas as an image
         pygame.quit()
 
         return render_template('play.html', N_CIRCLES=N_CIRCLES, your_score=your_score, message=message, prize=prize)
+
 
 @app.route('/score/<int:your_score>')
 def show_score(your_score):
@@ -61,15 +67,18 @@ def show_score(your_score):
 
     return render_template('score.html', your_score=your_score, message=message)
 
+
 def random_circles(canvas):
     circle_color = random_color()
     center_x = random.randint(CIRCLE_SIZE // 2, CANVAS_WIDTH - CIRCLE_SIZE // 2)
     center_y = random.randint(CIRCLE_SIZE // 2, CANVAS_HEIGHT - CIRCLE_SIZE // 2)
     pygame.draw.circle(canvas, circle_color, (center_x, center_y), CIRCLE_SIZE // 2)
 
+
 def random_color():
     colors = [(0, 0, 255), (128, 0, 128), (250, 128, 114), (173, 216, 230), (0, 255, 255), (34, 139, 34)]
     return random.choice(colors)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
