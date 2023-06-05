@@ -5,6 +5,7 @@ import os
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = 'static'
+app.static_url_path = '/static'
 
 
 CANVAS_WIDTH = 300
@@ -51,7 +52,7 @@ def play_game():
             prize = ''
 
 
-        pygame.image.save(canvas, os.path.join(os.getcwd(), app.config['STATIC_FOLDER'], 'canvas.png'))  # Save the canvas as an image
+        pygame.image.save(canvas, '/var/task/static/canvas.png')  # Save the canvas as an image
         pygame.quit()
 
         return render_template('play.html', N_CIRCLES=N_CIRCLES, your_score=your_score, message=message, prize=prize)
