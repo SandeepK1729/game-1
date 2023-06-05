@@ -4,7 +4,7 @@ import random
 import os
 
 app = Flask(__name__)
-app.static_folder = 'static'
+app.config['STATIC_FOLDER'] = 'static'
 
 
 CANVAS_WIDTH = 300
