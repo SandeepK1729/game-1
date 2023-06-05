@@ -10,7 +10,7 @@ CIRCLE_SIZE = 40
 
 @app.route('/')
 def index():
-    return render_template('game.html')
+    return render_template('templates/game.html')
 
 @app.route('/play')
 def play_game():
@@ -50,7 +50,7 @@ def play_game():
         pygame.image.save(canvas, 'static/canvas.png')  # Save the canvas as an image
         pygame.quit()
 
-        return render_template('play.html', N_CIRCLES=N_CIRCLES, your_score=your_score, message=message, prize=prize)
+        return render_template('templates/play.html', N_CIRCLES=N_CIRCLES, your_score=your_score, message=message, prize=prize)
 
 @app.route('/score/<int:your_score>')
 def show_score(your_score):
@@ -59,7 +59,7 @@ def show_score(your_score):
     else:
         message = 'Better luck next time!'
 
-    return render_template('score.html', your_score=your_score, message=message)
+    return render_template('templates/score.html', your_score=your_score, message=message)
 
 def random_circles(canvas):
     circle_color = random_color()
