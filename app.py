@@ -12,7 +12,7 @@ CIRCLE_SIZE = 40
 def index():
     return render_template('game.html')
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/play')
 def play_game():
     pygame.init()
     canvas = pygame.Surface((CANVAS_WIDTH, CANVAS_HEIGHT))
@@ -52,7 +52,7 @@ def play_game():
 
         return render_template('play.html', N_CIRCLES=N_CIRCLES, your_score=your_score, message=message, prize=prize)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/score/<int:your_score>')
 def show_score(your_score):
     if your_score >= 50:
         message = 'Congratulations! You deserve a prize'
