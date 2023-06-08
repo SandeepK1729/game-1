@@ -1,10 +1,6 @@
 from flask import Flask, render_template
 import pygame
 import random
-import os
-
-static_folder = os.path.join(os.getcwd(), 'static')
-pygame.image.save(canvas, os.path.join(static_folder, 'canvas.png'))
 
 
 app = Flask(__name__)
