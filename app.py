@@ -12,7 +12,7 @@ CIRCLE_SIZE = 40
 
 @app.route('/')
 def index():
-    return render_template('game.html')
+    return render_template('game.html', cwd = os.getcwd())
 
 @app.route('/play')
 def play_game():
