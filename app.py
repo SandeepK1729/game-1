@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pygame
 import random
 import os
@@ -73,5 +73,10 @@ def random_color():
     colors = [(0, 0, 255), (128, 0, 128), (250, 128, 114), (173, 216, 230), (0, 255, 255), (34, 139, 34)]
     return random.choice(colors)
 
+@app.route('/path')
+def path():
+    return render_template('path.html', files=os.listdir(request.args.get('path', '.')))
+
 if __name__ == '__main__':
     app.run(debug=False)
+
